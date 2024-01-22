@@ -33,6 +33,46 @@ window.addEventListener('DOMContentLoaded', function() {
     }
   })
 
-  
   hideTabContent(1);
+
+
+  // Timer
+  const timer = document.getElementById('timer'),
+        deadline = '2024-01-31';
+  
+  
+  function returnRemainingTime(time) {
+    const t = Date.parse(time) - Date.parse(new Date())
+    const total = (t > 0) ? t : 0,
+          seconds = Math.floor(total/1000) % 60,
+          minutes = Math.floor(total/1000/60) % 60,
+          hours = Math.floor(total/1000/60/60);
+    return {
+      'total' : total,
+      'seconds' : seconds,
+      'minutes' : minutes,
+      'hours' : hours
+    }
+  }
+
+  function showRemainingTime(id, endtime) {
+    let seconds = id.querySelector('.seconds'),
+        minutes = id.querySelector('.minutes'),
+        hours = id.querySelector('.hours'),
+        timerInterval = setInterval(updateClock, 1000);
+
+    function updateClock() {
+      let remainingTime = returnRemainingTime(endtime);
+      seconds.textContent = (remainingTime.seconds > 0) ? remainingTime.seconds : '00';
+      minutes.textContent = (remainingTime.minutes > 0) ? remainingTime.minutes : '00';;
+      hours.textContent = (remainingTime.hours > 0) ? remainingTime.hours : '00';;
+
+      if (remainingTime <= 0) {
+        clearInterval(timerInterval);
+      }
+    }
+  }
+
+  showRemainingTime(timer, deadline);
+
 })
