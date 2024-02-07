@@ -38,7 +38,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
   // Timer
   const timer = document.getElementById('timer'),
-        deadline = '2024-01-31';
+        deadline = '2024-02-28';
   
   
   function returnRemainingTime(time) {
@@ -74,5 +74,24 @@ window.addEventListener('DOMContentLoaded', function() {
   }
 
   showRemainingTime(timer, deadline);
+
+
+  // Modal
+
+  let overlay = document.querySelector('.overlay'),
+      close = document.querySelector('.popup-close'),
+      more = document.querySelector('.more');
+
+  more.addEventListener('click', function() {
+    this.classList.add('more-splash');
+    overlay.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  })
+
+  close.addEventListener('click', function() {
+    overlay.style.display = 'none';
+    more.classList.remove('more-splash');
+    document.body.style.overflow = '';
+  })
 
 })
